@@ -20,9 +20,15 @@ RUN apk update --no-cache \
         pdo \
         pdo_mysql \
         gd \
-    && apk del libpng-dev libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev \
+    && apk add --no-cache $PHPIZE_DEPS \
+    && pecl install xdebug-2.9.8 \
+    && docker-php-ext-enable xdebug \
+    && apk del libpng-dev libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev $PHPIZE_DEPS \
     && mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini \
     && sed -i "s/expose_php = On/expose_php = Off/g" $PHP_INI_DIR/php.ini \
+    && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && rm /usr/local/etc/php-fpm.d/zz-docker.conf \
     && npm -g install less
 
@@ -41,6 +47,7 @@ COPY ./docker/docker-cron-entrypoint /usr/local/bin/docker-cron-entrypoint
 RUN chmod 777 /var/www/docker/crontab \
     && crontab /var/www/docker/crontab \
     && chown -R www-data:www-data /var/www/runtime \
+    && chown -R www-data:www-data /var/www/assets \
     && chmod -R 777 /usr/local/bin/docker-cron-entrypoint
 
 # Make binaries from composer packages
