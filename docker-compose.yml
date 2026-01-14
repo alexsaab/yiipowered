@@ -46,7 +46,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - yiipowered_mysql:/var/lib/postgresql/data
+      - yiipowered_mysql:/var/lib/mysql/data
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: password
