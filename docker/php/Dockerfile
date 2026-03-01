@@ -1,4 +1,4 @@
-FROM php:7.4.9-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 RUN apk update --no-cache \
     && apk add --no-cache \
@@ -20,15 +20,15 @@ RUN apk update --no-cache \
         pdo \
         pdo_mysql \
         gd \
-    && apk add --no-cache $PHPIZE_DEPS \
-    && pecl install xdebug-2.9.8 \
+    && apk add --no-cache $PHPIZE_DEPS linux-headers \
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug \
-    && apk del libpng-dev libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev $PHPIZE_DEPS \
+    && apk del libpng-dev libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev $PHPIZE_DEPS linux-headers \
     && mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini \
     && sed -i "s/expose_php = On/expose_php = Off/g" $PHP_INI_DIR/php.ini \
-    && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && rm /usr/local/etc/php-fpm.d/zz-docker.conf \
     && npm -g install less
 

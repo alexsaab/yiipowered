@@ -1,38 +1,38 @@
 networks:
   yiipowered_public:
-    name: yiipowered_public
+    name: yiipowered_public_php84
   yiipowered_private:
-    name: yiipowered_private
+    name: yiipowered_private_php84
 
 volumes:
-  yiipowered_mysql:
-  php_socket:
+  yiipowered_mysql_php84:
+  php_socket_php84:
 
 services:
   yiipowered:
-    container_name: yiipowered
-    image: yiipowered:latest
+    container_name: yiipowered_php84
+    image: yiipowered:php8.4
     build:
       context: './'
       dockerfile: docker/php/Dockerfile
     volumes:
       - '.:/var/www'
-      - 'php_socket:/var/run/php'
+      - 'php_socket_php84:/var/run/php'
     depends_on:
       - mysql
     networks:
       - yiipowered_private
 
   nginx:
-    container_name: yiipowered_nginx
+    container_name: yiipowered_nginx_php84
     build:
       context: './docker/nginx'
     volumes:
       - './docker/nginx/local:/etc/nginx/conf.d:ro'
       - '.:/var/www'
-      - 'php_socket:/var/run/php'
+      - 'php_socket_php84:/var/run/php'
     ports:
-      - '80:80'
+      - '8083:80'
     depends_on:
       - yiipowered
     networks:
@@ -41,15 +41,18 @@ services:
           - yiipowered.test
 
   mysql:
-    container_name: yiipowered_mysql
+    container_name: yiipowered_mysql_php84
     image: 'mariadb:10.1.44'
     ports:
-      - '3306:3306'
+      - '33063:3306'
     volumes:
-      - yiipowered_mysql:/var/lib/mysql/data
+      - yiipowered_mysql_php84:/var/lib/mysql/data
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: yiipowered
     networks:
-      - yiipowered_private
+      yiipowered_private:
+        aliases:
+          - mysql
+          - yiipowered_mysql

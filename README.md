@@ -81,26 +81,11 @@ Will assign admin role to user with username=alex.
 INSTALLATION (Docker)
 ---------------------
 
-### PHP 7.4 (Default)
-
 1. `docker-compose up -d --build`.
-2. Add `yiipowered.local` to your hosts (points to 127.0.0.1).
-3. There are `.php-orig` sample configs in `config` directory. Copy these to `.php` without `-orig` and adjust to your
-   needs.
-4. `docker exec -it yiipowered chmod -R 777 assets runtime web/assets`
-5. `docker exec -it yiipowered bash`.
-6. `composer install && php yii migrate`.
-7. Use `user/assign` to assign roles to users.
-
-The application will be available at `http://yiipowered.test` (port 80).
-
-### PHP 8.3
-
-1. `docker-compose -f docker-compose-php8_4.yml up -d --build`.
 2. There are `.php-orig` sample configs in `config` directory. Copy these to `.php` without `-orig` and adjust to your
    needs.
-3. `docker exec -it yiipowered_php83 chmod -R 777 assets runtime web/assets`
-4. `docker exec -it yiipowered_php83 bash`.
+3. `docker exec -it yiipowered_php84 chmod -R 777 assets runtime web/assets`
+4. `docker exec -it yiipowered_php84 bash`.
 5. `composer install && php yii migrate`.
 6. Use `user/assign` to assign roles to users.
 
