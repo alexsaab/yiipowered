@@ -52,4 +52,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: yiipowered
     networks:
-      - yiipowered_private
+      yiipowered_private:
+        aliases:
+          - mysql
+          - yiipowered_mysql
