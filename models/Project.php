@@ -202,9 +202,10 @@ class Project extends ActiveRecord implements Linkable, ObjectIdentityInterface
     public function getSortedImages()
     {
         $images = ArrayHelper::index($this->images, 'id');
-        if ($images) {
-            $image = $images[$this->primaryImage->id];
-            unset($images[$this->primaryImage->id]);
+        $primaryImage = $this->getPrimaryImage();
+        if ($images && $primaryImage) {
+            $image = $images[$primaryImage->id];
+            unset($images[$primaryImage->id]);
             $images = array_merge([$image], $images);
         }
         
