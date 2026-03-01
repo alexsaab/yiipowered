@@ -89,4 +89,4 @@ INSTALLATION (Docker)
 5. `composer install && php yii migrate`.
 6. Use `user/assign` to assign roles to users.
 
-The application will be available at `http://localhost:8083`.
+The application will be available at `http://localhost`.
