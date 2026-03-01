@@ -24,7 +24,7 @@
         "bower-asset/cropper": "@dev",
         "bower-asset/font-awesome": "~4.7.0.0",
         "claviska/simpleimage": "^3.3",
-        "abraham/twitteroauth": "~0.7.4",
+        "abraham/twitteroauth": "^2.0.2",
         "yiisoft/yii2-queue": "~2.3.3"
     },
     "require-dev": {
@@ -35,6 +35,9 @@
         "process-timeout": 1800,
         "allow-plugins": {
             "yiisoft/yii2-composer": true
+        },
+        "audit": {
+            "block-insecure": false
         }
     },
     "scripts": {
