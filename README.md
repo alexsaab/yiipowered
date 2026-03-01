@@ -102,5 +102,6 @@ The application will be available at `http://yiipowered.test` (port 80).
 3. `docker exec -it yiipowered_php83 chmod -R 777 assets runtime web/assets`
 4. `docker exec -it yiipowered_php83 bash`.
 5. `composer install && php yii migrate`.
+6. Use `user/assign` to assign roles to users.
 
 The application will be available at `http://localhost:8083`.
