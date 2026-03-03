@@ -1,10 +1,8 @@
-YiiPowered
-==========
+# YiiPowered
 
 Showcase of Yii powered websites and projects.
 
-DIRECTORY STRUCTURE
--------------------
+## DIRECTORY STRUCTURE
 
       assets/             contains assets definition
       commands/           contains console commands (controllers)
@@ -17,15 +15,11 @@ DIRECTORY STRUCTURE
       views/              contains view files for the Web application
       web/                contains the entry script and Web resources
 
-
-REQUIREMENTS
-------------
+## REQUIREMENTS
 
 The minimum requirement by this project template that your Web server supports PHP 7.0.
 
-
-INSTALLATION (Locally)
-----------------------
+## INSTALLATION (Locally)
 
 ### 1. Framework and dependencies
 
@@ -34,10 +28,9 @@ at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
 
 You can then install this application template using the following command:
 
-~~~
+```
 composer install
-~~~
-
+```
 
 ### 2. Configs
 
@@ -54,9 +47,9 @@ Then apply migrations by running:
 yii migrate
 ```
 
-### 4. Permissions 
+### 4. Permissions
 
-Permissions tree should be already initialized at step 3, so you can 
+Permissions tree should be already initialized at step 3, so you can
 use `user/assign` to assign roles to users:
 
 ```
@@ -78,8 +71,7 @@ Will assign admin role to user with username=alex.
 0 5 * * * php yii check/all > /dev/null 2>&1
 ```
 
-INSTALLATION (Docker)
----------------------
+## INSTALLATION (Docker)
 
 1. `docker-compose up -d --build`.
 2. There are `.php-orig` sample configs in `config` directory. Copy these to `.php` without `-orig` and adjust to your
@@ -90,3 +82,24 @@ INSTALLATION (Docker)
 6. Use `user/assign` to assign roles to users.
 
 The application will be available at `http://localhost`.
+
+### Twitter (X) Auth Setup
+
+To enable Twitter (X) authentication via `yiisoft/yii2-authclient`:
+
+1. Go to the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard) and create a new App.
+2. Under User Authentication Settings, enable OAuth 1.0a.
+3. Set the App permissions to "Read" and enable "Request email address from users".
+4. Add your application's redirect URI (e.g. `http://yourdomain.com/site/auth?authclient=twitter`) to the allowed Callback URIs.
+5. Obtain your "API Key" and "API Key Secret".
+6. In `config/authclients.php`, fill in the `consumerKey` and `consumerSecret` for the `twitter` client with the obtained keys:
+   ```php
+   'twitter' => [
+       'class' => \yii\authclient\clients\Twitter::class,
+       'attributeParams' => [
+           'include_email' => 'true'
+       ],
+       'consumerKey' => 'TWITTER_API_KEY',
+       'consumerSecret' => 'TWITTER_API_SECRET',
+   ]
+   ```
