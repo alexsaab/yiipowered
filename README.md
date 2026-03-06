@@ -76,8 +76,8 @@ Will assign admin role to user with username=alex.
 1. `docker-compose up -d --build`.
 2. There are `.php-orig` sample configs in `config` directory. Copy these to `.php` without `-orig` and adjust to your
    needs.
-3. `docker exec -it yiipowered_php84 chmod -R 777 assets runtime web/assets`
-4. `docker exec -it yiipowered_php84 bash`.
+3. `docker exec -it yiipowered_php chmod -R 777 assets runtime web/assets`
+4. `docker exec -it yiipowered_php bash`.
 5. `composer install && php yii migrate`.
 6. Use `user/assign` to assign roles to users.
 
