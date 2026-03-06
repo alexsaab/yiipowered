@@ -103,3 +103,30 @@ To enable Twitter (X) authentication via `yiisoft/yii2-authclient`:
        'consumerSecret' => 'TWITTER_API_SECRET',
    ]
    ```
+
+## Testing
+
+The application includes unit tests for verifying the authentication flows (GitHub and Twitter). Since `AuthHandler` heavily relies on Yii2 Active Records (`User`, `Auth`), these tests require a proper Yii2 testing environment.
+
+To run the unit tests, you first need to configure the Codeception testing framework:
+
+1. Install Codeception and the Yii2 module via Composer:
+
+   ```bash
+   composer require --dev codeception/codeception codeception/module-yii2
+   ```
+
+2. Initialize Codeception:
+
+   ```bash
+   vendor/bin/codecept bootstrap
+   ```
+
+3. Configure your test database and Yii application mocks inside `tests/unit.suite.yml` and test configuration files.
+
+4. Run the unit tests:
+   ```bash
+   vendor/bin/codecept run unit
+   ```
+
+The test cases can be found in `tests/unit/components/AuthHandlerTest.php`.
